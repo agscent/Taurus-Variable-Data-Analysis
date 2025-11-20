@@ -1,6 +1,5 @@
-# Taurus/Variable Box Data Analysis Tool
+# Taurus Variable Data Analysis – Josh's EDA Pipeline
 
-A PyQt5-based desktop application designed for automated statistical analysis and visualization of test data from Taurus and Variable box systems. This tool processes multiple CSV files containing sensor channel data, performs statistical analysis across test runs, and generates comprehensive reports with visualizations.
 
 ## Overview
 
