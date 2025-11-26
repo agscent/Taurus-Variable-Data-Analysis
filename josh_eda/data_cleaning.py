@@ -93,7 +93,7 @@ def clean_variable_box_file(raw_path: Path) -> tuple[Path, list[dict]]:
     
     # Map to standard names expected by the analysis script
     rename_map = {
-        "seq_time": "Time_ms", 
+        "seq_time": "Sequence_Time_ms", 
         "temperature": "Temperature_C", 
         "humidity": "Humidity_percent",
         "seq_name": "Name" # The event name column
@@ -110,7 +110,37 @@ def clean_variable_box_file(raw_path: Path) -> tuple[Path, list[dict]]:
     # Sensor columns filter (D1 to D64, exclude D-Norm)
     # The D-Norm columns are intentionally excluded here.
     sensor_cols = [c for c in df.columns if c.startswith("d") and c[1:].isdigit() and not c.startswith('d-norm')]
+
+    # We use the 'date' column to create the highly accurate, zero-indexed elapsed time axis.
+    # Calculate Time_ms series using temporary structures
+    # Calculate Date_Time series from the 'date' column
+    date_time_series = pd.to_datetime(df['date'], errors='coerce')
+    t0 = date_time_series.min()
     
+    # Calculate elapsed time in milliseconds. Use 'Int64' to allow for NaN values.
+    # NaT - t0 correctly yields NaN for any row with an unusable date.
+    time_ms_series = ((date_time_series - t0).dt.total_seconds() * 1000)
+
+    # Insert 'Time_ms' and reorder ALL columns to eliminate fragmentation warnings.
+    
+    # Get the list of existing columns after dropping 'date'.
+    cols = df.columns.tolist()
+    
+    # Find the index for insertion (after 'Sequence_Time_ms').
+    insert_after_col = 'Sequence_Time_ms'
+    try:
+        insert_idx = cols.index(insert_after_col) + 1
+    except ValueError:
+        insert_idx = 0 # Fallback to front if duration column is missing
+        
+    # Insert the new column name after Sequence_Time_ms
+    cols.insert(insert_idx, 'Time_ms')
+    
+    # Use .assign() to efficiently add the new Time_ms column, 
+    # then immediately select the columns in the desired order [cols].
+    df = df.assign(Time_ms=time_ms_series)[cols]
+
+
     # Run fault detection and saving
     return _apply_fault_checks_and_save(df, raw_path, sensor_cols)
 
