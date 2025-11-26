@@ -1,6 +1,7 @@
 from pathlib import Path
 import sys
-from data_cleaning import clean_file   
+import pandas as pd
+from data_cleaning import clean_file  
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -25,11 +26,28 @@ if __name__ == "__main__":
 
     print(f"Found {len(files)} raw file(s) to clean...\n")
 
+    # 🔥 NEW: List to collect all structured faults from all files
+    all_faults = []
+
     for f in files:
         try:
-            cleaned_path = clean_file(f)
+            # 🔥 NEW: Collect both the path and the list of faults
+            cleaned_path, sample_faults = clean_file(f) 
+            all_faults.extend(sample_faults) 
             print(f"Cleaned → {cleaned_path.name}")
         except Exception as e:
             print(f"FAILED {f.name}: {e}")
 
-    print("\nBatch cleaning complete! Ready for visuals.")
+    # 🔥 NEW: Save the aggregated fault report
+    if all_faults:
+        faults_df = pd.DataFrame(all_faults)
+        
+        # Save the master report in the root directory where the script was run
+        master_fault_path = root / "MASTER_FAULT_REPORT.csv"
+        
+        faults_df.to_csv(master_fault_path, index=False)
+        print(f"\n--- Batch Cleaning Complete ---")
+        print(f"Master fault report created: {master_fault_path.name} ({len(all_faults)} total entries)")
+    else:
+        print("\n--- Batch Cleaning Complete ---")
+        print("No channel-level faults detected in batch.")
