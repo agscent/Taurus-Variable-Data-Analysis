@@ -149,83 +149,122 @@ def clean_variable_box_file(raw_path: Path) -> tuple[Path, list[dict]]:
 # SHARED FAULT CHECK AND SAVE LOGIC
 # ====================================================================
 
-def _apply_fault_checks_and_save(df: pd.DataFrame, raw_path: Path, sensor_cols: list[str]) -> tuple[Path, list[dict]]:
+def check_stuck_at_zero_live(df: pd.DataFrame, sensor_cols: list) -> pd.DataFrame:
     """
-    Applies the two active fault checks and saves the cleaned file.
+    Analyzes the sensor data (df) for the CRITICAL: STUCK_AT_ZERO_99PCT fault.
+    Returns a DataFrame of faults with columns ['Channel', 'Fault_Type'].
     """
     fault_log = []
-
-    # ------------------------------------------------------------------
-    # Temperature Stabilization Quality Check 
-    # ------------------------------------------------------------------
-    # Increased tolerance for stability check 
-    STABILITY_MAX_STD_C = 5.0  # Maximum acceptable standard deviation for a "stable" run
-    STABILIZATION_TARGET_C =60.0  # Target mean temperature for heated runs
-    HIGH_TEMP_RUN_THRESHOLD = 30.0  # If mean is above this, we assume it was a heated run
-
-    if 'Temperature_C' in df.columns and not df['Temperature_C'].empty:
-        temp_series = pd.to_numeric(df['Temperature_C'], errors='coerce').dropna()
-        if temp_series.empty:
-            for col in sensor_cols:
-                fault_log.append((col, "DATA_QUALITY_FAIL: MISSING_TEMP_DATA"))
-            # return fault_log # Early exit if no temp data
-
-        mean_temp = temp_series.mean()
-        std_temp = temp_series.std()
-        
-        # 1. Check for stability (applies to all runs, room temp or heated)
-        if std_temp > STABILITY_MAX_STD_C:
-            for col in sensor_cols:
-                fault_log.append((col, f"DATA_QUALITY_FAIL: T_UNSTABLE (STD: {std_temp:.2f}C > {STABILITY_MAX_STD_C:.1f}C)"))
-
-        # 2. Check for target mean (only applies if the run was attempting to be heated)
-        if mean_temp >= HIGH_TEMP_RUN_THRESHOLD:
-            if mean_temp < STABILIZATION_TARGET_C:
-                for col in sensor_cols:
-                    if not any("T_UNSTABLE" in d for d in fault_log):
-                         fault_log.append((col, f"DATA_QUALITY_FAIL: T_STAB_TOO_LOW (Mean: {mean_temp:.1f}C < Target: {STABILIZATION_TARGET_C:.1f}C)"))
-
-    else:
-        for col in sensor_cols:
-            fault_log.append((col, "DATA_QUALITY_FAIL: MISSING_TEMP_DATA"))
-
-    # ------------------------------------------------------------------
-    # Channel stuck at 0 Ω (if 99% of readings are 0)
-    # ------------------------------------------------------------------
     ZERO_READING_THRESHOLD = 0.99 
-
+    
     for col in sensor_cols:
         values = df[col]
         if values.empty:
             continue
             
-        values = pd.to_numeric(values, errors='coerce')
-        
-        zero_count = (values == 0).sum()
+        values = pd.to_numeric(values, errors='coerce').dropna()
         total_count = len(values)
         
-        if total_count > 0 and (zero_count / total_count) >= ZERO_READING_THRESHOLD:
-            fault_log.append((col, "CRITICAL: STUCK_AT_ZERO_99PCT"))
-        
-    # Save cleaned file
+        if total_count == 0:
+            continue
+
+        # Check: Channel stuck at 0 Ω (if 99% of readings are 0)
+        zero_count = (values == 0).sum()
+        if (zero_count / total_count) >= ZERO_READING_THRESHOLD:
+            fault_log.append({'Channel': col, 'Fault_Type': "CRITICAL: STUCK_AT_ZERO_99PCT"})
+
+    return pd.DataFrame(fault_log, columns=['Channel', 'Fault_Type'])
+
+
+def check_temperature_quality_live(df: pd.DataFrame, sensor_cols: list) -> pd.DataFrame:
+    """
+    Analyzes the temperature column for stability and target adherence.
+    Returns a DataFrame of faults with columns ['Channel', 'Fault_Type'].
+    The fault is applied to all sensor channels if the temperature check fails.
+    """
+    fault_log = []
+    
+    # Constants from your provided logic
+    STABILITY_MAX_STD_C = 5.0      # Maximum acceptable standard deviation
+    STABILIZATION_TARGET_C = 60.0  # Target mean temperature for heated runs
+    HIGH_TEMP_RUN_THRESHOLD = 30.0 # Threshold to assume a run was intended to be heated
+
+    # Check for the presence of the temperature column
+    if 'Temperature_C' not in df.columns or df['Temperature_C'].empty:
+        for col in sensor_cols:
+            fault_log.append({'Channel': col, 'Fault_Type': "DATA_QUALITY_FAIL: MISSING_TEMP_DATA"})
+        return pd.DataFrame(fault_log, columns=['Channel', 'Fault_Type'])
+
+    temp_series = pd.to_numeric(df['Temperature_C'], errors='coerce').dropna()
+    
+    if temp_series.empty:
+        for col in sensor_cols:
+            fault_log.append({'Channel': col, 'Fault_Type': "DATA_QUALITY_FAIL: MISSING_TEMP_DATA"})
+        return pd.DataFrame(fault_log, columns=['Channel', 'Fault_Type'])
+
+    mean_temp = temp_series.mean()
+    std_temp = temp_series.std()
+    
+    # 1. Check for stability (applies to all runs)
+    if std_temp > STABILITY_MAX_STD_C:
+        for col in sensor_cols:
+            fault_log.append({'Channel': col, 'Fault_Type': f"DATA_QUALITY_FAIL: T_UNSTABLE (STD: {std_temp:.2f}C > {STABILITY_MAX_STD_C:.1f}C)"})
+
+    # 2. Check for target mean (only if the run was attempting to be heated)
+    is_unstable = any("T_UNSTABLE" in f['Fault_Type'] for f in fault_log)
+    
+    if mean_temp >= HIGH_TEMP_RUN_THRESHOLD and not is_unstable:
+        if mean_temp < STABILIZATION_TARGET_C:
+            for col in sensor_cols:
+                # Only add if not already marked unstable to avoid redundant errors
+                fault_log.append({'Channel': col, 'Fault_Type': f"DATA_QUALITY_FAIL: T_STAB_TOO_LOW (Mean: {mean_temp:.1f}C < Target: {STABILIZATION_TARGET_C:.1f}C)"})
+
+    # We only return the unique faults to avoid excessive log entries, 
+    # though the analysis will use unique channel count anyway.
+    return pd.DataFrame(fault_log, columns=['Channel', 'Fault_Type'])
+
+
+def _apply_fault_checks_and_save(df: pd.DataFrame, raw_path: Path, sensor_cols: list[str]) -> tuple[Path, list[dict]]:
+    """
+    Applies the two active fault checks (Stuck-at-Zero and Temperature Quality) 
+    by calling external functions, and then saves the cleaned file.
+    """
+    
+    # 1. Execute Fault Checks using modular functions
+    df_stuck_at_zero = check_stuck_at_zero_live(df, sensor_cols)
+    df_temp_quality = check_temperature_quality_live(df, sensor_cols)
+    
+    # 2. Combine the fault results into a single DataFrame
+    df_faults = pd.concat([df_stuck_at_zero, df_temp_quality], ignore_index=True)
+    
+    # Drop duplicates in case a channel has the same fault type logged twice
+    df_faults = df_faults.drop_duplicates(subset=['Channel', 'Fault_Type'])
+    
+    # 3. Save cleaned file
     output_dir = raw_path.parent / "cleaned"
     output_dir.mkdir(exist_ok=True)
     cleaned_path = output_dir / f"{raw_path.stem}_CLEANED.xlsx"
     df.to_excel(cleaned_path, index=False)
 
-    # Structure fault data for return
+    # 4. Structure fault data for return
+    sample_name = raw_path.stem
     structured_faults = []
-    for channel, fault_type in fault_log:
-        structured_faults.append({
-            "Sample_Name": raw_path.stem,
-            "Channel": channel,
-            "Fault_Type": fault_type
-        })
+    
+    if not df_faults.empty:
+        # Convert the DataFrame rows into the required list of dicts format
+        structured_faults = df_faults.apply(
+            lambda row: {
+                "Sample_Name": sample_name,
+                "Channel": row['Channel'],
+                "Fault_Type": row['Fault_Type']
+            }, axis=1
+        ).tolist()
     
     print(f"Cleaned: {cleaned_path.name}")
     if structured_faults:
-        unique_channels = set(d['Channel'] for d in structured_faults)
-        print(f"   Faulty channels detected: {len(unique_channels)} → will be aggregated in final report.")
+        # Calculate unique channels from the combined fault DataFrame
+        unique_channels = df_faults['Channel'].nunique() 
+        print(f"   Faulty channels detected: {unique_channels} → will be aggregated in final report.")
     
     return cleaned_path, structured_faults
 
