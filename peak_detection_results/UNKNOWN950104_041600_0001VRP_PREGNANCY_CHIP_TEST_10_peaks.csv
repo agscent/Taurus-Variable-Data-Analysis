@@ -1,0 +1,2 @@
+peak_type,peak_index,peak_height,peak_prominence,peak_width,time_to_peak,peak_area,abs_peak_area,left_bound,right_bound,relative_time,sample,channel
+positive,7,700,700.0,12.833333333333332,3,8000.0,8000.0,0,13,18.75,UNKNOWN950104_041600_0001VRP_PREGNANCY_CHIP_TEST_10,Pump_Rate

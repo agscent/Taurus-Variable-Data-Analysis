@@ -1,11 +1,11 @@
 """
 Master pipeline script - runs the complete baseline correction workflow.
+MODIFIED: Now runs BOTH linear and exponential methods for visualization.
 
 Steps:
-1. Visualize all samples with quality classification
+1. Visualize all samples with BOTH linear and exponential methods
 2. Generate quality reports
 3. Apply baseline correction to INCLUDE channels
-4. Create summary reports
 
 Usage:
     python run_full_pipeline.py
@@ -22,7 +22,7 @@ print("""
 ║                                                                            ║
 ║                    BASELINE CORRECTION PIPELINE                            ║
 ║                                                                            ║
-║  Step 1: Visualize all samples with quality classification                ║
+║  Step 1: Visualize with BOTH linear and exponential methods               ║
 ║  Step 2: Generate comprehensive quality reports                           ║
 ║  Step 3: Apply baseline correction to high-quality channels               ║
 ║                                                                            ║
@@ -54,33 +54,50 @@ print(f"  • Skip visualization: {args.skip_viz}")
 print()
 
 # ============================================================================
-# STEP 1: VISUALIZE ALL SAMPLES
+# STEP 1: VISUALIZE ALL SAMPLES WITH BOTH METHODS
 # ============================================================================
 
 if not args.skip_viz:
     print("╔════════════════════════════════════════════════════════════════════════════╗")
-    print("║ STEP 1: VISUALIZING ALL SAMPLES                                           ║")
+    print("║ STEP 1: VISUALIZING ALL SAMPLES (LINEAR & EXPONENTIAL)                    ║")
     print("╚════════════════════════════════════════════════════════════════════════════╝")
     print()
     
     try:
-        from batch_visualize_all_IMPROVED import (
+        from batch_visualize_all_BOTH_METHODS import (
             batch_process_all_samples,
             create_master_visualization_index
         )
         
-        summary_df, quality_df = batch_process_all_samples(
-            root_dir=Path(args.input),
-            output_dir=Path("batch_visualizations")
-        )
+        # Process with BOTH methods
+        for viz_method in ["linear", "exponential"]:
+            print(f"\n{'='*80}")
+            print(f"VISUALIZING WITH {viz_method.upper()} METHOD")
+            print(f"{'='*80}\n")
+            
+            output_dir = Path(f"batch_visualizations_{viz_method}")
+            
+            summary_df, quality_df = batch_process_all_samples(
+                root_dir=Path(args.input),
+                output_dir=output_dir,
+                method=viz_method
+            )
+            
+            create_master_visualization_index(output_dir, method=viz_method)
+            
+            print(f"\n✓ {viz_method.upper()} visualizations saved to {output_dir}/")
         
-        create_master_visualization_index(Path("batch_visualizations"))
-        
-        print("\n✓ Step 1 complete: Visualizations saved to batch_visualizations/")
-        print("  → Open batch_visualizations/index.html to browse results")
+        print("\n" + "="*80)
+        print("✓ Step 1 complete: Both linear and exponential visualizations created")
+        print("="*80)
+        print("  → Open batch_visualizations_linear/index.html")
+        print("  → Open batch_visualizations_exponential/index.html")
+        print("  → Compare both methods to see which gives better baseline correction")
         
     except Exception as e:
         print(f"\n❌ Step 1 failed: {e}")
+        import traceback
+        traceback.print_exc()
         print("Continuing with next steps...")
 else:
     print("⏭  Skipping visualization step (--skip-viz flag set)")
@@ -126,8 +143,8 @@ print()
 try:
     import pandas as pd
     
-    # Load the summary files
-    viz_summary = Path("batch_visualizations/SUMMARY_statistics.csv")
+    # Load the summary files (use linear by default for merging)
+    viz_summary = Path("batch_visualizations_linear/SUMMARY_statistics.csv")
     corr_summary = Path("baseline_corrected_data/CORRECTION_SUMMARY.csv")
     
     if viz_summary.exists() and corr_summary.exists():
@@ -189,43 +206,56 @@ print("╚═══════════════════════�
 print("""
 📂 Output Structure:
    
-   batch_visualizations/
-   ├── index.html                    ← Open this to browse all visualizations
-   ├── all_channels_*.png            ← Grid plots for each sample
-   ├── MASTER_quality_report.csv     ← All channels, all samples
-   └── SUMMARY_statistics.csv        ← Per-sample summary
+   batch_visualizations_linear/          ← NEW! Linear method
+   ├── index.html                         ← Open this to browse linear results
+   ├── all_channels_*.png                 ← Grid plots for each sample
+   ├── detailed_plots/                    ← ALL channels, 3-panel plots
+   │   └── detailed_*_*.png
+   ├── MASTER_quality_report.csv          ← All channels, all samples
+   └── SUMMARY_statistics.csv             ← Per-sample summary
+   
+   batch_visualizations_exponential/      ← NEW! Exponential method
+   ├── index.html                         ← Open this to browse exponential results
+   ├── all_channels_*.png                 ← Grid plots for each sample
+   ├── detailed_plots/                    ← ALL channels, 3-panel plots
+   │   └── detailed_*_*.png
+   ├── MASTER_quality_report.csv          ← All channels, all samples
+   └── SUMMARY_statistics.csv             ← Per-sample summary
    
    baseline_corrected_data/
-   ├── *_CORRECTED.xlsx              ← Corrected data files (NaN = excluded)
-   ├── quality_reports/              ← Per-sample quality details
+   ├── *_CORRECTED.xlsx                   ← Corrected data files (NaN = excluded)
+   ├── quality_reports/                   ← Per-sample quality details
    │   └── *_quality.csv
-   └── CORRECTION_SUMMARY.csv        ← Inclusion/exclusion summary
+   └── CORRECTION_SUMMARY.csv             ← Inclusion/exclusion summary
    
-   FINAL_PIPELINE_SUMMARY.csv        ← Complete overview
+   FINAL_PIPELINE_SUMMARY.csv             ← Complete overview
 
 📊 Next Steps:
    
-   1. Review visualizations:
-      → Open batch_visualizations/index.html in browser
+   1. Compare visualization methods:
+      → Open batch_visualizations_linear/index.html in browser
+      → Open batch_visualizations_exponential/index.html in browser
+      → Compare the same channels in detailed_plots/ folders
+      → Pick which method gives better baseline correction
    
-   2. Check quality classifications:
-      → Review batch_visualizations/MASTER_quality_report.csv
+   2. Review detailed plots:
+      → Look at Panel 1: Does red line fit blue data well?
+      → Look at Panel 3: Is baseline (green region) flat near zero?
+      → Linear better? → Baseline drifts steadily
+      → Exponential better? → Baseline curves/decays
    
-   3. Verify corrected data:
+   3. Check quality classifications:
+      → Review batch_visualizations_*/MASTER_quality_report.csv
+   
+   4. Verify corrected data:
       → Check baseline_corrected_data/*_CORRECTED.xlsx
       → Excluded channels are set to NaN
    
-   4. Proceed to kinetics analysis:
+   5. Proceed to kinetics analysis:
       → Use corrected data for peak detection
       → Fit double exponential binding/dissociation curves
       → Calculate ΔR/R for each channel
 
-🎯 For Wednesday Meeting:
-   
-   Present FINAL_PIPELINE_SUMMARY.csv showing:
-   • X% of channels are EXCELLENT/GOOD quality
-   • Y% included in corrected dataset
-   • Ready to proceed with kinetics analysis on high-quality channels
 """)
 
 print("\n✅ All done!")
