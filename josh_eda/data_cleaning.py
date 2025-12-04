@@ -14,7 +14,7 @@ def clean_file(raw_path: str) -> tuple[Path, list[dict]]:
     Returns: A tuple containing (Path to cleaned file, list of structured faults).
     """
     raw_path = Path(raw_path)
-    
+
     # Load the file once using pd.read_excel with no header to inspect content
     try:
         df_test = pd.read_excel(raw_path, header=None)
@@ -22,17 +22,29 @@ def clean_file(raw_path: str) -> tuple[Path, list[dict]]:
         print(f"CRITICAL ERROR: Could not read {raw_path.name} as an Excel file. Error: {e}")
         return raw_path, []
 
-    # 1. Check for the TAURUS Box header column 'Seq' (at or near column 0)
+    # TAURUS Box header column 'Seq' (at or near column 0)
     if df_test.iloc[:, 0].astype(str).str.contains('Seq', case=True, na=False).any():
         print(f"Detected TAURUS Box (T1-T28) format.")
+        # Assuming clean_taurus_file still only needs raw_path
         return clean_taurus_file(raw_path)
     
-    # 2. Check for the VARIABLE Box header marker 'seq_order' 
-    # (Checking rows 8-10, as the header is typically around row 10 / index 9)
-    header_rows = df_test.iloc[8:10].astype(str).values.flatten()
-    if any('seq_order' in str(cell).lower() for cell in header_rows):
-        print(f"Detected VARIABLE Box (D1-D64) format.")
-        return clean_variable_box_file(raw_path)
+    # VARIABLE Box header marker 'seq_order' 
+    #    Find the index where 'seq_order' appears in the first column
+    header_row_index = None
+    
+    # Check the common header locations: (Rows 9, 10, and 11)
+    for i in range(8, 11): 
+        # Check the first cell (column 0) of the row
+        cell_value = str(df_test.iloc[i, 0]).lower()
+        
+        # Check if 'seq_order' is in the cell's content
+        if 'seq_order' in cell_value:
+            header_row_index = i
+            break 
+
+    if header_row_index is not None:
+        # Pass the detected header index to the cleaning function
+        return clean_variable_box_file(raw_path, header_row_index)
 
     # If no format is definitively detected, log and return empty.
     print(f"Format detection failed for {raw_path.name}. Could not find 'Seq' or 'seq_order' header markers.")
@@ -80,16 +92,16 @@ def clean_taurus_file(raw_path: Path) -> tuple[Path, list[dict]]:
 # VARIABLE BOX CLEANER (D1-D64) - NEW (Now uses pd.read_excel)
 # ====================================================================
 
-def clean_variable_box_file(raw_path: Path) -> tuple[Path, list[dict]]:
-    """Cleans a Variable Box (D1-D64) sensor file, which is a standard XLSX."""
-    
-    HEADER_ROW_IDX = 9 
+def clean_variable_box_file(raw_path: Path, header_row_idx: int) -> tuple[Path, list[dict]]:
+    """Cleans a Variable Box (D1-D64) sensor file, which is a standard XLSX.""" 
     
     # Read the data, directly using the header row index (10th row)
-    df = pd.read_excel(raw_path, header=HEADER_ROW_IDX)
+    df = pd.read_excel(raw_path, header=header_row_idx)
 
     # Clean column names
     df.columns = df.columns.str.replace(r'\s*\([^)]*\)', '', regex=True).str.strip().str.lower().str.replace(' ', '_')
+    # Convert column names to lowercase for case-insensitive processing
+    df.columns = df.columns.str.lower()
     
     # Map to standard names expected by the analysis script
     rename_map = {

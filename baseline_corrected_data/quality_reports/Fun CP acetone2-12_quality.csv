@@ -1,0 +1,65 @@
+Channel,Quality,Usability,Included,Reason,baseline_mean,baseline_std,baseline_centered,signal_range,noise_to_signal,mean_resistance,in_good_range,high_freq_noise_ratio,has_high_freq_noise,drift_rate,has_drift
+d1,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,152.56461111293174,,999759.4863777753,True,0.0,False,,False
+d2,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,819237.1475953013,,95217051.99492733,False,0.0,False,,False
+d3,POOR,EXCLUDE,False,Resistance too high (9.53e+07Ω > 1MΩ) - not sensitive,,,False,3316.749585404992,,95264299.41794296,False,0.0,False,,False
+d4,POOR,EXCLUDE,False,Resistance too high (9.54e+06Ω > 1MΩ) - not sensitive,,,False,332.2259136196226,,9542199.205263501,False,0.0,False,,False
+d5,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,213.5904555580346,,999951.5382999992,True,0.0,False,,False
+d6,POOR,EXCLUDE,False,Resistance too high (9.53e+07Ω > 1MΩ) - not sensitive,,,False,3316.749585404992,,95255389.71807633,False,0.0,False,,False
+d7,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,27823.24058920145,,93994448.1884407,False,0.0,False,,False
+d8,POOR,EXCLUDE,False,Resistance too high (9.38e+06Ω > 1MΩ) - not sensitive,,,False,654.664484448731,,9377966.047302723,False,0.0,False,,False
+d9,POOR,EXCLUDE,False,Resistance too high (9.53e+07Ω > 1MΩ) - not sensitive,,,False,3316.749585404992,,95273566.80649036,False,0.0,False,,False
+d10,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,14925.37313440442,,93495333.78857347,False,0.0,False,,False
+d11,POOR,EXCLUDE,False,Resistance too high (9.52e+07Ω > 1MΩ) - not sensitive,,,False,3316.749585494399,,95232302.53958964,False,0.0,False,,False
+d12,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,29850.746268704534,,94853672.8124085,False,0.0,False,,False
+d13,POOR,EXCLUDE,False,Resistance too high (9.53e+07Ω > 1MΩ) - not sensitive,,,False,3316.749585404992,,95254999.51224273,False,0.0,False,,False
+d14,POOR,EXCLUDE,False,Resistance too high (9.53e+07Ω > 1MΩ) - not sensitive,,,False,4975.124378100038,,95270672.77989137,False,0.0,False,,False
+d15,POOR,EXCLUDE,False,Resistance too high (9.53e+07Ω > 1MΩ) - not sensitive,,,False,3316.749585404992,,95258771.50196731,False,0.0,False,,False
+d16,POOR,EXCLUDE,False,Resistance too high (9.53e+07Ω > 1MΩ) - not sensitive,,,False,4975.124378100038,,95257795.98738334,False,0.0,False,,False
+d17,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,2160.345655304991,,204896.64901006003,True,0.0,False,,False
+d18,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,6322.2149553078925,,549836.066975297,True,0.0,False,,False
+d19,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,718.9284145805905,,5610.681983231003,True,0.0,False,,False
+d20,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,1246.3849765258292,,6252.004050446472,True,0.0,False,,False
+d21,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,2072.968490878993,,205068.74668054064,True,0.0,False,,False
+d22,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,6006.6740823140135,,549412.2009204127,True,0.0,False,,False
+d23,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,817.9551122194498,,5688.370984303948,True,0.0,False,,False
+d24,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,1151.9107075293205,,6274.980896634099,True,0.0,False,,False
+d25,POOR,EXCLUDE,False,Resistance too low (856Ω < 1kΩ) - not sensitive,,,False,10.188378880339997,,856.1911153423958,False,0.0,False,,False
+d26,POOR,EXCLUDE,False,Resistance too low (450Ω < 1kΩ) - not sensitive,,,False,5.890052356020988,,449.68432399137686,False,0.0,False,,False
+d27,POOR,EXCLUDE,False,Resistance too low (564Ω < 1kΩ) - not sensitive,,,False,8.278716798895971,,563.6967446516379,False,0.0,False,,False
+d28,POOR,EXCLUDE,False,Resistance too low (274Ω < 1kΩ) - not sensitive,,,False,3.208992598912971,,274.3072187603317,False,0.0,False,,False
+d29,POOR,EXCLUDE,False,Resistance too low (856Ω < 1kΩ) - not sensitive,,,False,9.304421588377977,,855.7214318237103,False,0.0,False,,False
+d30,POOR,EXCLUDE,False,Resistance too low (446Ω < 1kΩ) - not sensitive,,,False,5.598320503848981,,445.9583693519396,False,0.0,False,,False
+d31,POOR,EXCLUDE,False,Resistance too low (564Ω < 1kΩ) - not sensitive,,,False,8.477449983045062,,563.8867279702657,False,0.0,False,,False
+d32,POOR,EXCLUDE,False,Resistance too low (274Ω < 1kΩ) - not sensitive,,,False,3.194710154348968,,274.24467065750497,False,0.0,False,,False
+d33,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,287.59391738859995,,35158.426889467366,True,0.0,False,,False
+d34,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,200.4008016031985,,24019.935295427455,True,0.0,False,,False
+d35,POOR,EXCLUDE,False,Resistance too low (823Ω < 1kΩ) - not sensitive,,,False,59.597696851865976,,823.0059690069103,False,0.0,False,,False
+d36,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,269.92753623188946,,5321.084889818905,True,0.0,False,,False
+d37,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,2792.8232904530014,,323727.99040627305,True,0.0,False,,False
+d38,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,21239.126954479958,,849675.9929223835,True,0.0,False,,False
+d39,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,64.51612903201021,,920257.1157495254,True,0.0,False,,False
+d40,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,4.838709677394945,,92025.86970271979,True,0.0,False,,False
+d41,POOR,EXCLUDE,False,Resistance too low (328Ω < 1kΩ) - not sensitive,,,False,4.055294082822002,,328.08936853609515,False,0.0,False,,False
+d42,POOR,EXCLUDE,False,Resistance too low (562Ω < 1kΩ) - not sensitive,,,False,5.737174441587058,,562.482144210643,False,0.0,False,,False
+d43,POOR,EXCLUDE,False,Resistance too low (465Ω < 1kΩ) - not sensitive,,,False,6.128430588861988,,464.93001677089705,False,0.0,False,,False
+d44,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,10.329546873050049,,1005.357217159739,True,0.0,False,,False
+d45,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,274.59459459459686,,17179.745627980927,True,0.0,False,,False
+d46,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,458.2771030139993,,17912.565161017177,True,0.0,False,,False
+d47,POOR,EXCLUDE,False,Resistance too low (637Ω < 1kΩ) - not sensitive,,,False,10.153773917125932,,637.1659044335345,False,0.0,False,,False
+d48,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,116.80351567017897,,9082.244323657531,True,0.0,False,,False
+d49,POOR,EXCLUDE,False,Resistance too high (9.37e+07Ω > 1MΩ) - not sensitive,,,False,4909.98363339901,,93668303.32787779,False,0.0,False,,False
+d50,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,6535.947712406516,,93483724.20863776,False,0.0,False,,False
+d51,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,6535.947712406516,,93517397.15494038,False,0.0,False,,False
+d52,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,9803.921568602324,,93513520.44085607,False,0.0,False,,False
+d53,POOR,EXCLUDE,False,Resistance too high (9.37e+07Ω > 1MΩ) - not sensitive,,,False,4909.98363339901,,93663682.16681111,False,0.0,False,,False
+d54,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,4901.960784390569,,93478501.85825965,False,0.0,False,,False
+d55,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,6535.947712495923,,93510925.28514671,False,0.0,False,,False
+d56,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,8169.934640496969,,93508650.51903115,False,0.0,False,,False
+d57,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,17377.567140609026,,89628132.45361337,False,0.0,False,,False
+d58,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,4901.960784390569,,93478533.89721905,False,0.0,False,,False
+d59,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,4901.960784301162,,93481321.28668469,False,0.0,False,,False
+d60,POOR,EXCLUDE,False,Resistance too high (8.97e+07Ω > 1MΩ) - not sensitive,,,False,9478.67298579216,,89652169.87268844,False,0.0,False,,False
+d61,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,15797.788309708238,,89660347.55134282,False,0.0,False,,False
+d62,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,4901.960784301162,,93473407.66371904,False,0.0,False,,False
+d63,POOR,EXCLUDE,False,Resistance too high (9.35e+07Ω > 1MΩ) - not sensitive,,,False,3267.9738563001156,,93476611.5596565,False,0.0,False,,False
+d64,POOR,EXCLUDE,False,Resistance too high (8.97e+07Ω > 1MΩ) - not sensitive,,,False,6319.115323901176,,89689403.09141035,False,0.0,False,,False
