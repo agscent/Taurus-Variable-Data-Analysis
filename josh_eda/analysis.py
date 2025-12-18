@@ -106,30 +106,60 @@ def get_taurus_baseline_indices(df: pd.DataFrame, filename: str = "") -> tuple:
 
 def get_variable_baseline_indices(df: pd.DataFrame, filename: str = "") -> tuple:
     """
-    Finds the start ('Initialize system' or 'Init system') and end (row before first 
-    'breath' or 'Sample') indices for Variable Box baseline.
+    Finds the start ('Initialize system') and end (row before first 'breath') 
+    indices for Variable Box baseline.
+    
+    Variable box structure:
+    - Row 0: Initialize system
+    - Rows 1-N: cyl air (baseline)
+    - Rows N+1-M: breath (response)
+    - Rows M+1+: cyl air (post-breath, NOT baseline)
     """
-    init_indices = df[df['Name'].str.contains('init', case=False, na=False)].index
-    breath_sample_indices = df[df['Name'].str.contains('sample|breath', case=False, na=False)].index
+    # Check if 'Name' column exists
+    if 'Name' not in df.columns:
+        # Try alternate column names
+        name_candidates = ['seq_name', 'sequence_name', 'State', 'state']
+        name_col = None
+        for candidate in name_candidates:
+            if candidate in df.columns:
+                name_col = candidate
+                break
+        
+        if name_col is None:
+            print(f"Warning: No sequence name column in {filename}, using first 30% as baseline.")
+            baseline_end = int(len(df) * 0.3)
+            return df.index[0], baseline_end
+    else:
+        name_col = 'Name'
     
-    if len(init_indices) == 0:
-        print(f"Warning: Could not find Init/Initialize in {filename}, using full dataset.")
-        return df.index[0], df.index[-1]
+    # Look for breath markers (case-insensitive)
+    breath_indices = df[df[name_col].str.contains('breath', case=False, na=False)].index
     
-    first_init_idx = init_indices[0]
+    if len(breath_indices) == 0:
+        # No breath found - try other patterns
+        sample_indices = df[df[name_col].str.contains('sample|expose|test', case=False, na=False)].index
+        if len(sample_indices) > 0:
+            breath_indices = sample_indices
     
-    if len(breath_sample_indices) == 0:
-        print(f"Warning: Could not find Sample/breath in {filename}, using from Init to end.")
-        return first_init_idx, df.index[-1]
+    if len(breath_indices) == 0:
+        print(f"Warning: No breath/sample found in {filename}, using first 30% as baseline.")
+        baseline_end = int(len(df) * 0.3)
+        return df.index[0], baseline_end
     
-    first_breath_idx = breath_sample_indices[0]
+    # Baseline ends just before first breath
+    first_breath_idx = breath_indices[0]
     last_baseline_idx = first_breath_idx - 1
     
-    if last_baseline_idx < first_init_idx:
-        print(f"Warning: Sample/breath before Init system in {filename}.")
-        return first_init_idx, first_init_idx
-        
-    return first_init_idx, last_baseline_idx
+    # Start from beginning (includes "Initialize system" and "cyl air")
+    first_baseline_idx = df.index[0]
+    
+    if last_baseline_idx < first_baseline_idx:
+        print(f"Warning: Breath at start of {filename}, using first 30% as baseline.")
+        baseline_end = int(len(df) * 0.3)
+        return df.index[0], baseline_end
+    
+    return first_baseline_idx, last_baseline_idx
+
 
 def check_fit_quality(normalised_df: pd.DataFrame, start_idx: int, end_idx: int) -> float:
     """
@@ -372,46 +402,48 @@ def analyze_box(df: pd.DataFrame, cleaned_file: Path, df_faults: pd.DataFrame, b
     return results_dict
 
 # ===== MAIN EXECUTION LOOP =====
-output_filename = "analysis_summary.csv" 
+if __name__ == "__main__":
 
-for cleaned_file in sorted(root.rglob("*_CLEANED.xlsx")):
-    # Skip temp files created by Excel
-    if cleaned_file.name.startswith('~$'):
-        continue
-    
-    box_type = determine_box_type(cleaned_file)
-    
-    if box_type is None:
-        continue
-    
-    try:
-        df = pd.read_excel(cleaned_file)
-    except Exception as e:
-        print(f"ERROR: Could not read {cleaned_file.name}: {e}")
-        continue
-    
-    # Identify sensor columns using the robust detection function
-    sensor_cols = identify_sensor_columns(df, box_type)
-    
-    if not sensor_cols:
-        print(f"ERROR: No sensor columns found in {cleaned_file.name}")
-        continue
+    output_filename = "analysis_summary.csv" 
 
-    df_stuck_at_zero = check_stuck_at_zero_live(df, sensor_cols)
-    df_temp_quality = check_temperature_quality_live(df, sensor_cols)
-    
-    df_faults = pd.concat([df_stuck_at_zero, df_temp_quality], ignore_index=True)
-    df_faults = df_faults.drop_duplicates(subset=['Channel', 'Fault_Type'])
+    for cleaned_file in sorted(root.rglob("*_CLEANED.xlsx")):
+        # Skip temp files created by Excel
+        if cleaned_file.name.startswith('~$'):
+            continue
+        
+        box_type = determine_box_type(cleaned_file)
+        
+        if box_type is None:
+            continue
+        
+        try:
+            df = pd.read_excel(cleaned_file)
+        except Exception as e:
+            print(f"ERROR: Could not read {cleaned_file.name}: {e}")
+            continue
+        
+        # Identify sensor columns using the robust detection function
+        sensor_cols = identify_sensor_columns(df, box_type)
+        
+        if not sensor_cols:
+            print(f"ERROR: No sensor columns found in {cleaned_file.name}")
+            continue
 
-    result = analyze_box(df, cleaned_file, df_faults, box_type)
-    
-    if result:
-        results.append(result)
+        df_stuck_at_zero = check_stuck_at_zero_live(df, sensor_cols)
+        df_temp_quality = check_temperature_quality_live(df, sensor_cols)
+        
+        df_faults = pd.concat([df_stuck_at_zero, df_temp_quality], ignore_index=True)
+        df_faults = df_faults.drop_duplicates(subset=['Channel', 'Fault_Type'])
 
-if results:
-    df_summary = pd.DataFrame(results)
-    df_summary.to_csv(output_filename, index=False)
-    print(f"\n--- Analysis complete. Processed {len(results)} files ---")
-    print(f"--- Summary exported to {output_filename} ---")
-else:
-    print("\n--- Analysis complete, but no files were processed successfully. ---")
+        result = analyze_box(df, cleaned_file, df_faults, box_type)
+        
+        if result:
+            results.append(result)
+
+    if results:
+        df_summary = pd.DataFrame(results)
+        df_summary.to_csv(output_filename, index=False)
+        print(f"\n--- Analysis complete. Processed {len(results)} files ---")
+        print(f"--- Summary exported to {output_filename} ---")
+    else:
+        print("\n--- Analysis complete, but no files were processed successfully. ---")
