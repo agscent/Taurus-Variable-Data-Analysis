@@ -322,7 +322,7 @@ def create_sample_summary_report(df: pd.DataFrame, sensor_cols: list,
     return quality_df
 
 
-def batch_process_all_samples(root_dir: Path = Path("historical_reference_data"),
+def batch_process_all_samples(root_dir: Path = Path("reference_data"),
                               output_dir: Path = Path("batch_visualizations"),
                               method: str = "linear"):
     """
@@ -578,7 +578,7 @@ if __name__ == "__main__":
         
         # Process all samples
         summary_df, quality_df = batch_process_all_samples(
-            root_dir=Path("historical_reference_data"),
+            root_dir=Path("reference_data"),
             output_dir=output_dir,
             method=method
         )
