@@ -41,7 +41,7 @@ parser.add_argument('--method', type=str, default='Linear_Fit',
                    help='Baseline correction method')
 parser.add_argument('--skip-viz', action='store_true',
                    help='Skip visualization step (if already done)')
-parser.add_argument('--input', type=str, default='historical_reference_data',
+parser.add_argument('--input', type=str, default='reference_data',
                    help='Input directory with cleaned data')
 
 args = parser.parse_args()
