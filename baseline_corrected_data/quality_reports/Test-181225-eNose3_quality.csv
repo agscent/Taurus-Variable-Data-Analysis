@@ -1,0 +1,65 @@
+Channel,Quality,Usability,Included,Reason,baseline_mean,baseline_std,baseline_centered,signal_range,noise_to_signal,mean_resistance,in_good_range,high_freq_noise_ratio,has_high_freq_noise,drift_rate,has_drift
+d1,POOR,EXCLUDE,False,Resistance too low (996Ω < 1kΩ) - not sensitive,,,False,2.6478907143289234,,996.2517660426236,False,,False,,False
+d2,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,292.89191820838005,,2146.4129065685215,True,,False,,False
+d3,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,110.25241066364015,,3511.982741573736,True,,False,,False
+d4,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,1141.9249592170017,,32980.72667563217,True,,False,,False
+d5,POOR,EXCLUDE,False,Resistance too low (68Ω < 1kΩ) - not sensitive,,,False,16.927145948545395,,68.36924895936966,False,,False,,False
+d6,POOR,EXCLUDE,False,Resistance too low (57Ω < 1kΩ) - not sensitive,,,False,36.7983212171176,,56.735586882996074,False,,False,,False
+d7,POOR,EXCLUDE,False,Resistance too low (67Ω < 1kΩ) - not sensitive,,,False,22.2868857879769,,67.0481358630594,False,,False,,False
+d8,POOR,EXCLUDE,False,Resistance too low (85Ω < 1kΩ) - not sensitive,,,False,17.171579948376603,,85.32384286638359,False,,False,,False
+d9,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,200000.0,,93996969.46909311,False,,False,,False
+d10,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,20516393.442623004,,83592728.229809,False,,False,,False
+d11,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,55737.70491810143,,94021943.14934574,False,,False,,False
+d12,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,72131.14754100144,,94031643.85621898,False,,False,,False
+d13,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,200000.0,,93946811.5506091,False,,False,,False
+d14,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,154098.3606557995,,93931305.45946757,False,,False,,False
+d15,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,200000.0,,94005406.82809445,False,,False,,False
+d16,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,159016.39344260097,,93916205.44442773,False,,False,,False
+d17,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,54.23043795137005,,1095.923622166421,True,,False,,False
+d18,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,191.13007979217036,,6122.363598291457,True,,False,,False
+d19,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,12951.312910284032,,448336.90502479277,True,,False,,False
+d20,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,131376.76705592964,,5035537.771437271,False,,False,,False
+d21,POOR,EXCLUDE,False,Resistance too low (845Ω < 1kΩ) - not sensitive,,,False,35.24104150554297,,844.9948085551226,False,,False,,False
+d22,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,39.357311320749886,,1206.7820803401419,True,,False,,False
+d23,POOR,EXCLUDE,False,Resistance too low (342Ω < 1kΩ) - not sensitive,,,False,16.32692807063097,,342.1219080472366,False,,False,,False
+d24,POOR,EXCLUDE,False,Resistance too low (332Ω < 1kΩ) - not sensitive,,,False,13.23072369394697,,331.75232480621526,False,,False,,False
+d25,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,13114.754098400474,,93862633.47871861,False,,False,,False
+d26,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,11475.409836098552,,93863084.67438711,False,,False,,False
+d27,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,13742622.950819701,,93785291.02120619,False,,False,,False
+d28,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,72213114.7540984,,90855700.10527895,False,,False,,False
+d29,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,11475.409836098552,,93863746.42803426,False,,False,,False
+d30,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,56696721.311475396,,93323605.05339149,False,,False,,False
+d31,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,73357377.0491803,,92336456.61001654,False,,False,,False
+d32,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,65145901.6393443,,92650751.99278086,False,,False,,False
+d33,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,23317504.65549348,,21972195.17195428,False,,False,,False
+d34,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,12873286.248442031,,9858726.268566836,False,,False,,False
+d35,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,20297374.42922378,,16022239.328054966,False,,False,,False
+d36,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,6715608.465608465,,5865351.543267664,False,,False,,False
+d37,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,35919934.64052291,,25750292.318762373,False,,False,,False
+d38,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,21239445.91029029,,16623426.569194648,False,,False,,False
+d39,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,6850967.007963589,,5088731.982757721,False,,False,,False
+d40,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,6157094.594594596,,4581476.25836846,False,,False,,False
+d41,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,90361426.25607784,,84865894.45823978,False,,False,,False
+d42,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,90315447.15447158,,66216334.75050347,False,,False,,False
+d43,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,69147487.84440848,,47154156.69189479,False,,False,,False
+d44,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,90559157.21231766,,61202786.492795855,False,,False,,False
+d45,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,80299837.9254457,,88978112.50055762,False,,False,,False
+d46,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,90455429.49756892,,54628581.62461155,False,,False,,False
+d47,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,91142625.60777962,,79195158.5802864,False,,False,,False
+d48,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,91265802.2690438,,60734331.55398273,False,,False,,False
+d49,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,37.77455949794967,,3864.1491008377134,True,,False,,False
+d50,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,42.26110363392036,,4349.364095472113,True,,False,,False
+d51,POOR,EXCLUDE,False,Resistance too low (225Ω < 1kΩ) - not sensitive,,,False,1.9221186018370133,,225.4178795563778,False,,False,,False
+d52,POOR,EXCLUDE,False,Resistance too low (296Ω < 1kΩ) - not sensitive,,,False,2.562856259113005,,296.04030194841135,False,,False,,False
+d53,POOR,EXCLUDE,False,Resistance too low (90Ω < 1kΩ) - not sensitive,,,False,24.637846469715996,,90.25008293192884,False,,False,,False
+d54,POOR,EXCLUDE,False,Resistance too low (78Ω < 1kΩ) - not sensitive,,,False,39.37961254612591,,77.99566886150514,False,,False,,False
+d55,POOR,EXCLUDE,False,Resistance too low (33Ω < 1kΩ) - not sensitive,,,False,8.892753948438898,,32.88077306452696,False,,False,,False
+d56,POOR,EXCLUDE,False,Resistance too low (41Ω < 1kΩ) - not sensitive,,,False,7.601788656154405,,41.22837321679575,False,,False,,False
+d57,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,27552.674230203032,,92579230.66629,False,,False,,False
+d58,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,25931.92868719995,,92578100.60517749,False,,False,,False
+d59,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,61588.33063209057,,92578650.76650858,False,,False,,False
+d60,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,51863.8573743999,,92578033.69366424,False,,False,,False
+d61,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,89141.0048621893,,92582085.55752161,False,,False,,False
+d62,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,51863.8573743999,,92577691.70148546,False,,False,,False
+d63,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,66450.5672609955,,92578293.90510462,False,,False,,False
+d64,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,61588.33063209057,,92577238.19011793,False,,False,,False

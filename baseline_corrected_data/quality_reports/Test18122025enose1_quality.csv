@@ -1,0 +1,65 @@
+Channel,Quality,Usability,Included,Reason,baseline_mean,baseline_std,baseline_centered,signal_range,noise_to_signal,mean_resistance,in_good_range,high_freq_noise_ratio,has_high_freq_noise,drift_rate,has_drift
+d1,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,3481.2617303400766,,998859.668076205,True,,False,,False
+d2,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,90.54859961907005,,6562.216856591472,True,,False,,False
+d3,POOR,EXCLUDE,False,Resistance too low (785Ω < 1kΩ) - not sensitive,,,False,17.145991319691916,,785.3140124520709,False,,False,,False
+d4,POOR,EXCLUDE,False,Resistance too high (9.31e+06Ω > 1MΩ) - not sensitive,,,False,2310.2310231104493,,9305303.236745695,False,,False,,False
+d5,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,85987.91565620992,,1341338.592030276,False,,False,,False
+d6,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,20507.574650489958,,1565482.885924186,False,,False,,False
+d7,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,7582.126732056,,167913.7617535605,True,,False,,False
+d8,POOR,EXCLUDE,False,Resistance too low (526Ω < 1kΩ) - not sensitive,,,False,1343.23432343234,,525.5851273200715,False,,False,,False
+d9,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,22427.392739273906,,69462.29600024222,True,,False,,False
+d10,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,73.6029077692001,,14699.31932524416,True,,False,,False
+d11,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,13.51782863225003,,1720.602653177808,True,,False,,False
+d12,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,279.41224811810025,,19963.42458990636,True,,False,,False
+d13,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,54.404145077720386,,5049.151494985026,True,,False,,False
+d14,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,10739.2739273927,,86237.5177884761,True,,False,,False
+d15,POOR,EXCLUDE,False,Resistance too high (1.33e+06Ω > 1MΩ) - not sensitive,,,False,2983.000980720157,,1330615.4421754428,False,,False,,False
+d16,POOR,EXCLUDE,False,Resistance too low (443Ω < 1kΩ) - not sensitive,,,False,4.291333889617022,,443.3716717282681,False,,False,,False
+d17,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,5771287.12871287,,9223959.941865746,False,,False,,False
+d18,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,2838118.81188118,,9215787.083295481,False,,False,,False
+d19,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,457858.76993166003,,2960347.5222192695,False,,False,,False
+d20,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,11104.110883604037,,851305.4139855875,True,,False,,False
+d21,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,282.0822121183992,,29850.50562146876,True,,False,,False
+d22,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,1254.6195394674978,,30398.90391618714,True,,False,,False
+d23,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,80.12434817488997,,1189.069148968795,True,,False,,False
+d24,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,9532.630928949096,,70008.18610210887,True,,False,,False
+d25,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,70104.06811731408,,534721.5591990488,True,,False,,False
+d26,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,42717.61480466099,,268955.73818940955,True,,False,,False
+d27,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,792.7147065488302,,3049.5400890197225,True,,False,,False
+d28,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,25171.929824561397,,67665.38709158216,True,,False,,False
+d29,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,759796.5898893198,,2283789.4875503248,False,,False,,False
+d30,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,208038.86925795,,799523.5557752779,True,,False,,False
+d31,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,2684905.6603772994,,14795876.752639782,False,,False,,False
+d32,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,2914210.5263157897,,8759709.480122326,False,,False,,False
+d33,POOR,EXCLUDE,False,Resistance too low (601Ω < 1kΩ) - not sensitive,,,False,3.190728549686014,,600.6486771666075,False,,False,,False
+d34,POOR,EXCLUDE,False,Resistance too low (309Ω < 1kΩ) - not sensitive,,,False,0.8141313465239932,,309.040026653352,False,,False,,False
+d35,POOR,EXCLUDE,False,Resistance too low (209Ω < 1kΩ) - not sensitive,,,False,0.7069080626790196,,209.24244460481785,False,,False,,False
+d36,POOR,EXCLUDE,False,Resistance too low (668Ω < 1kΩ) - not sensitive,,,False,2.593928585903086,,668.4049384295204,False,,False,,False
+d37,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,79.99211900305045,,3211.3806295578956,True,,False,,False
+d38,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,256.20420704325306,,1113.4176389933916,True,,False,,False
+d39,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,664.9684057300037,,105672.3695899801,True,,False,,False
+d40,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,1019.1347753744012,,22524.4177644802,True,,False,,False
+d41,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,15.813551385029996,,1138.943022503023,True,,False,,False
+d42,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,58765.47640410019,,2853284.2653883323,False,,False,,False
+d43,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,1331.0856372217968,,21560.211448403006,True,,False,,False
+d44,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,40.175631174529826,,2408.2823929076158,True,,False,,False
+d45,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,18.223965763200113,,1175.8022615136965,True,,False,,False
+d46,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,560.4356151268603,,3847.0170311065835,True,,False,,False
+d47,POOR,EXCLUDE,False,Resistance too low (164Ω < 1kΩ) - not sensitive,,,False,8.015777085055987,,164.27527955124722,False,,False,,False
+d48,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,72.41659886087018,,2172.402788871388,True,,False,,False
+d49,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,154.0166204986199,,2913.4446449295624,True,,False,,False
+d50,POOR,EXCLUDE,False,Resistance too low (520Ω < 1kΩ) - not sensitive,,,False,4.219479653101985,,519.870127485602,False,,False,,False
+d51,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,89.95229429990991,,1492.973865867255,True,,False,,False
+d52,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,37.977384254319986,,7035.145033207213,True,,False,,False
+d53,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,8287.212772739003,,935206.671240841,True,,False,,False
+d54,DEAD,EXCLUDE,False,Sensor saturated or unstable,,,False,12838.703320524015,,312112.18893532245,True,,False,,False
+d55,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,1962.0679106760408,,9096.269936377592,True,,False,,False
+d56,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,197.46052417386,,1277.1208222381858,True,,False,,False
+d57,POOR,EXCLUDE,False,Resistance too low (12Ω < 1kΩ) - not sensitive,,,False,3.80118167169363,,12.40065394880536,False,,False,,False
+d58,POOR,EXCLUDE,False,Resistance too low (610Ω < 1kΩ) - not sensitive,,,False,17.035341978134056,,610.408265762747,False,,False,,False
+d59,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,89.57427283245988,,2802.608984990851,True,,False,,False
+d60,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,75.40595163425996,,2167.387236012356,True,,False,,False
+d61,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,2944.1235411995876,,98829.13425339619,True,,False,,False
+d62,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,2188.503063904005,,327407.28644359566,True,,False,,False
+d63,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,2143.8662585354396,,3183.1470892567454,True,,False,,False
+d64,MARGINAL,CAUTION,False,Borderline quality - review carefully,,,False,2010.4129263914,,11102.403109712914,True,,False,,False
